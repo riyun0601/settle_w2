@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+<link rel="stylesheet" href="settle.css" />
+<link rel="stylesheet" href="./style.css" />
+<script defer src="./script.js"></script>
+
+<title>11월 정산 내역</title>
+
+<style>
+
+.content {
+    overflow-y: auto;
+}
+
+.settlement-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666666;
+    margin-top: 12px;
+}
+
+.settlement-total {
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+.card-box {
+    margin-top: 20px;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 10px 0;
+    box-shadow: 0 0 6px rgba(0,0,0,0.12);
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+}
+.user:last-child {
+    border-bottom: none;
+}
+
+.icon-profile {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-info {
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.tag {
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    color: #ffffff;
+    margin-left: 8px;
+    font-weight: 500;
+}
+.매니저 { background: #ef7d7d; }
+.직원 { background: #76a6ff; }
+.수습생 { background: #ffbb5d; }
+
+.money {
+    margin-left: auto;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.front {
+    height: 16px;
+    margin-left: 12px;
+}
+</style>
+</head>
+
+<body>
+<div class="phone">
+
+    <div class="statusbar">
+        <div class="status-left">8:52</div>
+        <img class="status-right" src="icon/top.png" />
+    </div>
+
+    <header class="topbar">
+        <button class="back" onclick="location.href='settle.html'">
+            <img src="icon/arrow.png" />
+        </button>
+        <h1>11월 정산 내역</h1>
+    </header>
+
+    <main class="content">
+
+        <div class="settlement-label">최종 정산 내역</div>
+        <div class="settlement-total" id="totalPay">0원</div>
+
+        <div class="card-box" id="userList"></div>
+
+    </main>
+
+    <nav class="bottombar" aria-label="하단탭">
+        <div class="tab-item" data-target="index.html">
+            <img src="./icon/home.png" alt="홈 아이콘" />
+        </div>
+
+        <div class="tab-item" data-target="sheet.html">
+            <img src="./icon/calender.png" alt="캘린더 아이콘" />
+        </div>
+
+        <div class="tab-item" data-target="emp_list.html">
+            <img src="./icon/people.png" alt="사람 아이콘" />
+        </div>
+
+        <div class="tab-item" data-target="settle.html">
+            <img src="./icon/page_blue.png" alt="정산 아이콘" />
+        </div>
+    </nav>
+
+</div>
+
+<script>
+
+function toMin(t) {
+    const [h, m] = t.split(":").map(Number);
+    return h * 60 + m;
+}
+
+function calcDailyMinutes(start, end) {
+    let s = toMin(start);
+    let e = toMin(end);
+    if (e < s) e += 1440;
+    return (e - s) - 60;
+}
+
+function generateAttendance(emp, year, month) {
+    const last = new Date(year, month, 0).getDate();
+    const att = [];
+    const week = ["일","월","화","수","목","금","토"];
+
+    for (let d = 1; d <= last; d++) {
+        const date = `${year}-${String(month).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+        const dow = week[new Date(date).getDay()];
+        const sch = emp.schedule.find(s => s.day === dow);
+        if (sch) att.push({date, start: sch.start, end: sch.end});
+    }
+    return att;
+}
+
+function calcWeeklyHoliday(emp, att) {
+    if (!emp.wh) return 0;
+
+    const weeks = {};
+    att.forEach(a=>{
+        const day = Number(a.date.split("-")[2]);
+        const w = Math.ceil(day / 7);
+        if (!weeks[w]) weeks[w] = [];
+        weeks[w].push(a);
+    });
+
+    let total = 0;
+
+    for (let w in weeks) {
+        const list = weeks[w];
+        let totalMin = list.reduce((s,a)=> s + calcDailyMinutes(a.start,a.end),0);
+        const avg = totalMin / list.length;
+        const weekly = totalMin + avg;
+        total += (weekly/60) * emp.wage;
+    }
+
+    return total;
+}
+
+function calcPay(emp) {
+    const att = generateAttendance(emp, 2025, 11);
+
+    const baseMin = att.reduce((s,a)=> s + calcDailyMinutes(a.start,a.end),0);
+    const basePay = (baseMin/60) * emp.wage;
+
+    const whPay = calcWeeklyHoliday(emp, att);
+
+    return Math.floor((basePay + whPay) * 0.967);
+}
+
+$(function () {
+    $.getJSON("employees.json", function (list) {
+
+        let total = 0;
+        let html = "";
+
+        list.forEach(emp => {
+            const pay = calcPay(emp);
+            total += pay;
+
+            html += `
+            <div class="user">
+                <img src="icon/profile.png" class="icon-profile" />
+                <div class="user-info">
+                    ${emp.name}
+                    <span class="tag ${emp.pos}">${emp.pos}</span>
+                </div>
+                <div class="money">${pay.toLocaleString()}원</div>
+                <img src="icon/front.png" class="front" />
+            </div>`;
+        });
+
+        $("#userList").html(html);
+        $("#totalPay").text(total.toLocaleString() + "원");
+    });
+});
+</script>
+
+</body>
+</html>

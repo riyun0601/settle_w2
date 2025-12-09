@@ -1,0 +1,534 @@
+* {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* 전체 페이지 스크롤 방지 */
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f2f5;
+}
+
+/* ===========================
+   Phone Frame
+   =========================== */
+
+.phone {
+    position: relative;
+    width: 393px;
+    height: 852px;
+    border-radius: 36px;
+    background-color: #fafafa;
+    outline: 12px solid #a8a8a8;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ===========================
+   Status Bar
+   =========================== */
+
+.statusbar {
+    width: 100%;
+    height: 40px;
+    padding: 20px 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #333333;
+}
+
+.status-left {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.status-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-icon {
+    font-size: 18px;
+}
+
+/* ===========================
+   Topbar
+   =========================== */
+
+.topbar {
+    position: relative;
+    height: 60px;
+    padding: 0 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.topbar h1 {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.back {
+    position: absolute;
+    left: 24px;
+    transform: rotate(90deg);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* ===========================
+   Content (캘린더+출근부 영역)
+   =========================== */
+
+.content {
+    position: relative;
+    flex: 1;
+    margin: 0 24px;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden; /* 전체가 아니라 sheet-container만 스크롤 */
+}
+
+/* ===========================
+   Calendar
+   =========================== */
+
+.calendar-container {
+    width: 100%;
+    height: 340px;
+    padding: 4px 0 16px 0;
+    border-bottom: 1px solid #cccccc;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;           /* 접힐 때 튀는거 방지 */
+    transition: height 0.25s ease;
+}
+
+.calendar-header {
+    padding: 0 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calendar-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.calendar-header button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#prev-month {
+    transform: rotate(90deg);
+}
+
+#next-month {
+    transform: rotate(-90deg);
+}
+
+.calendar-weekdays {
+    padding: 20px 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+
+    font-size: 14px;
+    font-weight: 600;
+    color: #777777;
+    text-align: center;
+}
+
+.calendar-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    transition: transform 0.25s ease;  /* 주간 모드에서 위로 슬라이드 */
+}
+
+/* 주간 모드 전환용 공통 애니메이션 */
+.calendar-day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    max-height: 48px;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+/* 선택된 주 이외의 칸을 완전히 접기 */
+.calendar-day.week-hidden {
+    display: none;
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.calendar-container.week-mode {
+    height: 220px; /* 취향껏: 월(340)보다 조금 낮게 */
+}
+
+.date-number {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.calendar-day.sunday .date-number {
+    color: #da737e;
+}
+
+.calendar-day.saturday .date-number {
+    color: #3e96d8;
+}
+
+.calendar-day.other-month .date-number {
+    color: #cccccc;
+}
+
+.calendar-day.today .date-number {
+    color: #1766f4;
+    border: 2px solid #1766f4;
+}
+
+.calendar-day.selected .date-number {
+    background: #1766f4;
+    color: #ffffff;
+}
+
+/* ===========================
+   Work Create Button
+   =========================== */
+
+.work-create {
+    position: absolute;
+    right: 0;
+    bottom: 12px;
+
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+
+    border: none;
+    background-color: #1766f4;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* ===========================
+   Bottom Bar
+   =========================== */
+
+.bottombar {
+    width: 100%;
+    height: 80px;
+    padding-bottom: 16px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background: #ffffff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bottombar img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+/* ===========================
+   Sheet (출근표)
+   =========================== */
+
+/* 전체 래퍼: 여기만 세로 스크롤 */
+.sheet-container {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    margin: 12px 0;
+    padding-bottom: 16px;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow-y: auto;   /* 휠 스크롤은 여기만 */
+    overflow-x: auto;   /* 가로도 여기만 */
+    scrollbar-width: none;
+}
+
+.profile {
+    width: 96px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-row {
+    padding: 7px 0;
+    width: 52px;
+    display: flex;
+    flex-direction: column;         /* 위: 아바타, 아래: 이름 */
+    align-items: center;
+    justify-content: center;        /* 줄 안에서 세로 가운데 정렬 */
+}
+
+.profile-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #c4c8d0;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-name {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #555555;
+    text-align: center;
+}
+
+/* 오른쪽 시간표 영역 */
+.worksheet {
+    display: flex;
+    overflow: visible;  /* ← 스크롤바 절대 안 생기게 */
+    cursor: grab;
+}
+
+.worksheet.dragging {
+    cursor: grabbing;
+}
+
+/* 상단 타임라인 (09:00부터 1시간 단위 라벨이 들어온다는 전제) */
+.timeline {
+    position: sticky;
+    top: 0;
+    height: 12px;
+    margin-left: 52px;
+    margin-bottom: 8px;
+    z-index: 2;
+    display: grid;
+    align-items: flex-end;
+
+    font-size: 10px;
+    color: #999999;
+}
+
+.timeline-cell {
+    text-align: center;
+}
+
+.sheet-grid {
+    flex: 1;
+    display: grid;
+    margin-top: 0;
+}
+
+/* 각 시간 블럭 셀 */
+.sheet-cell {
+    border-bottom: 1px solid #eeeeee;
+}
+
+/* 1시간 단위 세로라인 */
+.sheet-cell.hour-line {
+    border-left: 1px solid #dddddd;
+}
+
+/* 기본 근무 시간 색 */
+.sheet-cell.work-normal {
+    background: #8699bf;
+}
+
+/* work-create로 추가된 근무 시간 색 */
+.sheet-cell.work-added {
+    background: #ffb86c;
+}
+
+/* ===========================
+   Work Add Popup (텍스트 입력)
+   =========================== */
+
+.hidden {
+    display: none !important;
+}
+
+.work-overlay {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 50;
+}
+
+.work-popup {
+    width: 320px;
+    padding: 18px 16px 14px;
+
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.work-popup-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.work-popup-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.work-popup-row label {
+    font-size: 12px;
+    color: #777777;
+}
+
+#work-employee {
+    width: 100%;
+    padding: 7px 10px;
+
+    border-radius: 10px;
+    border: 1px solid #dddddd;
+    background: #f8f8f8;
+
+    font-size: 13px;
+}
+
+/* 시간 입력 두 개를 한 줄에 */
+.work-time-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+/* 각각 50% 비율 */
+.time-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.time-field label {
+    font-size: 12px;
+    color: #777777;
+    margin-bottom: 4px;
+}
+
+/* 텍스트 기반 시간 입력 */
+.time-input {
+    width: 100%;
+    padding: 8px 10px;
+
+    border-radius: 8px;
+    border: 1px solid #cfcfcf;
+    background: #f8f8f8;
+
+    font-size: 14px;
+    line-height: 1.4;
+
+    outline: none;
+}
+
+.time-input::placeholder {
+    color: #bbbbbb;
+    font-size: 12px;
+}
+
+.time-input:focus {
+    border-color: #4e74ff;
+    background: #ffffff;
+}
+
+/* 버튼 영역 */
+.work-popup-buttons {
+    margin-top: 16px;
+
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.btn-popup-cancel,
+.btn-popup-confirm {
+    min-width: 70px;
+    padding: 6px 12px;
+
+    border-radius: 999px;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.btn-popup-cancel {
+    background: #eeeeee;
+    color: #555555;
+}
+
+.btn-popup-confirm {
+    background: #4e74ff;
+    color: #ffffff;
+}

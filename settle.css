@@ -1,0 +1,126 @@
+* {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f2f5;
+}
+
+.phone {
+    position: relative;
+    width: 393px;
+    height: 852px;
+    border-radius: 36px;
+    background-color: #fafafa;
+    outline: 12px solid #a8a8a8;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.statusbar {
+    width: 100%;
+    height: 40px;
+    padding: 20px 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #333333;
+}
+
+.status-left {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.status-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-icon {
+    font-size: 18px;
+}
+
+.topbar {
+    position: relative;
+    height: 60px;
+    padding: 0 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.topbar h1 {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.back {
+    position: absolute;
+    left: 24px;
+    transform: rotate(90deg);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.content {
+    position: relative;
+    flex: 1;
+    margin: 0 24px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.bottombar {
+    width: 100%;
+    height: 80px;
+    padding-bottom: 16px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background: #ffffff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bottombar img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}

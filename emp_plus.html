@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link rel="stylesheet" href="emp_plus.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="./script.js"></script>
+    <title>Sheet</title>
+</head>
+<body>
+    <div class="phone">
+        <div class="statusbar">
+            <div class="status-left">8:52</div>
+            <img class="status-right" src="icon/top.png">
+        </div>
+
+        <header class="topbar">
+            <a href="emp_list.html" class="back" aria-label="뒤로가기">
+                <img src="./icon/arrow.png" /> 
+            </a>
+            <h1 id="title">직원 추가하기</h1>
+            <button class="save-btn">저장</button>
+        </header>
+
+        <main class="content">
+            <div class="profile-area">
+                <div class="profile-img-container">
+                    <img src="icon/face.png" alt="기본 프로필 이미지" />
+                    <button class="edit-btn">
+                        <img src="icon/edit.png" alt="편집 아이콘" />
+                    </button>
+                </div>
+            </div>
+
+            <form class="employee-form">
+                <div class="input-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" placeholder="" />
+                </div>
+                <div class="input-group">
+                    <label for="contact">연락처</label>
+                    <input type="tel" id="contact" placeholder="" />
+                </div>
+                <div class="input-group">
+                    <label for="title">직책</label>
+                    <input type="text" id="title" placeholder="" />
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="birth">생년월일</label>
+                        <div class="date-input">
+                            <input type="text" id="birth" placeholder="날짜 선택" readonly />
+                            <input type="date" id="birth-date-picker" class="hidden-date-input" /> 
+                            <span class="calender-icon" data-target="#birth-date-picker">
+                                <img src="icon/calender.png" alt="달력 아이콘" />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="contract-start">계약 시작일</label>
+                        <div class="date-input">
+                            <input type="text" id="contract-start" placeholder="날짜 선택" readonly />
+                             <input type="date" id="contract-start-date-picker" class="hidden-date-input" />
+                            <span class="calender-icon" data-target="#contract-start-date-picker">
+                                <img src="icon/calender.png" alt="달력 아이콘" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="wage">시급</label>
+                        <input type="text" id="wage" placeholder="" />
+                    </div>
+                    <div class="input-group">
+                        <label for="night-bonus">야간 근로 가산</label>
+                        <input type="text" id="night-bonus" placeholder="" />
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="weekly-allowance">주휴수당 지급 여부</label>
+                        <input type="text" id="weekly-allowance" placeholder="" />
+                    </div>
+                    <div class="input-group">
+                        <label for="four-insurance">4대보험 적용 여부</label>
+                        <input type="text" id="four-insurance" placeholder="" />
+                    </div>
+                </div>
+                
+                <div class="input-group work-schedule">
+                    <label for="schedule">근무 시간표</label>
+                    <button type="button" class="add-schedule-btn">+</button>
+                </div>
+            </form>
+        </main>
+
+        <nav class="bottombar" aria-label="하단탭">
+            <div class="tab-item" data-target="index.html">
+                <img src="./icon/home.png" alt="홈 아이콘" />
+            </div>
+
+            <div class="tab-item" data-target="sheet.html">
+                <img src="./icon/calender.png" alt="캘린더 아이콘" />
+            </div>
+
+            <div class="tab-item" data-target="emp_list.html">
+                <img src="./icon/people_blue.png" alt="사람 아이콘" />
+            </div>
+
+            <div class="tab-item" data-target="settle.html">
+                <img src="./icon/page.png" alt="정산 아이콘" />
+            </div>
+        </nav>
+
+        <div class="homebar"></div>
+    </div>
+</body>
+<script>
+    $(document).ready(function() {
+        function clearDateInputFocus() {
+            $('.date-input').removeClass('focused');
+        }
+
+        function triggerDatePicker(targetDateInput, dateInputContainer) {
+            
+            clearDateInputFocus();
+            dateInputContainer.addClass('focused');
+
+            if (targetDateInput.length) {
+                targetDateInput.focus(); 
+                
+                if (typeof targetDateInput[0].showPicker === 'function') {
+                    targetDateInput[0].showPicker();
+                } else {
+                    targetDateInput.click();
+                }
+            }
+        }
+
+        $('.date-input input[type="text"]').on('click', function(e) {
+            e.stopPropagation();
+            
+            const visibleInputId = $(this).attr('id');
+            const targetDateInput = $('#' + visibleInputId + '-date-picker');
+            const dateInputContainer = $(this).closest('.date-input');
+            
+            triggerDatePicker(targetDateInput, dateInputContainer);
+        });
+
+        $('.calender-icon').on('click', function(e) {
+            e.stopPropagation(); 
+
+            const targetDateInput = $($(this).data('target'));
+            const dateInputContainer = $(this).closest('.date-input');
+
+            triggerDatePicker(targetDateInput, dateInputContainer);
+        });
+
+        
+        $('.input-group input[type="text"], .input-group input[type="tel"]').on('focus', function() {
+            clearDateInputFocus();
+        });
+
+        $(document).on('click', function(e) {
+    
+            if (!$(e.target).closest('.date-input').length) {
+                clearDateInputFocus();
+            }
+        });
+
+        $('input[type="date"]').on('change', function() {
+            const selectedDate = $(this).val();
+            
+            if (selectedDate) {
+                const formattedDate = moment(selectedDate).format('YYYY-MM-DD');
+                const targetTextId = $(this).attr('id').replace('-date-picker', '');
+                $('#' + targetTextId).val(formattedDate);
+
+                $(this).closest('.date-input').removeClass('focused');
+            }
+        });
+    });
+</script>

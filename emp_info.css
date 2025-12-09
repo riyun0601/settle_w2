@@ -1,0 +1,305 @@
+* {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+
+    margin: 0;
+    padding: 0;
+
+    user-select: none;
+    -webkit-user-drag: none;
+
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.phone{
+    position: relative;
+    background-color: #FAFAFA;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 393px;
+    height: 852px;
+
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    outline: 12px solid #A8A8A8;
+    border-radius: 36px;
+    overflow: hidden;
+}
+
+.statusbar {
+    width:100%;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px 24px;
+    color:#333;
+}
+
+.status-left {
+    font-size: 18px;
+    font-weight: 600;
+    color:#333
+}
+
+.status-right {
+    display: flex;
+    align-items: center;
+    gap: 8px
+}
+
+.status-icon {
+    font-size: 18px;
+}
+
+.topbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    height: 60px;
+    padding: 0 24px;
+}
+
+.topbar h1 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+}
+
+.back {
+    position: absolute;
+    left: 24px;
+    transform: rotate(90deg);
+    background:transparent;
+    border:none;
+    cursor:pointer;
+}
+
+.content {
+    height: 100%;
+    margin-bottom: 80px;
+    padding: 0 24px 40px 24px;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.bottombar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    padding-top: 16px;
+
+    display: flex;
+    justify-content: space-around;
+    background: #ffffff;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+.bottombar img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.content::-webkit-scrollbar {
+    display: none;
+    width: 0;
+}
+.topbar .save {
+    position: absolute;
+    right: 24px;
+    background: none;
+    border: none;
+    color: #4A90E2;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.detail-content {
+    padding-top: 20px;
+}
+
+.profile-area {
+    text-align: center;
+    position: relative;
+    padding-bottom: 30px;
+    border-bottom: 8px solid #f9f9f9; 
+}
+
+.profile-area #profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #E0E0E0;
+    object-fit: cover;
+    margin: 0 auto 10px;
+}
+
+.profile-area .edit-profile-btn { 
+    display: none; 
+}
+
+.employee-name-lg {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 5px;
+}
+
+
+.role-badge-lg {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 5px;
+}
+.role-badge-lg.manager { background-color: #1E88E5; }
+.role-badge-lg.employee { background-color: #4CAF50; }
+.role-badge-lg.trainer { background-color: #FFB300; color: #333; }
+
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label, .schedule-label {
+    display: block;
+    font-size: 15px;
+    color: #999;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.input-group input[readonly] {
+    border: none;
+    padding: 0;
+    background: transparent;
+    font-size: 18px; 
+    font-weight: 700;
+    color: #333;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #E0E0E0;
+    display: block; 
+    width: 100%;
+}
+
+.date-group, .salary-group, .checkbox-group {
+    display: flex;
+    gap: 20px;
+}
+
+.date-group .input-group, 
+.salary-group .input-group,
+.checkbox-group .input-group {
+    flex: 1;
+}
+
+.schedule-label {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+}
+
+.schedule-list {
+    margin-bottom: 15px;
+}
+
+.schedule-item {
+    display: flex;
+    align-items: flex-start;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 12px 16px; 
+    margin-bottom: 10px;
+    font-size: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07); 
+}
+
+.schedule-item .day {
+    font-weight: 700;
+    color: #2a72f1;
+    width: 40px; 
+    flex-shrink: 0;
+}
+
+.schedule-item .time-group {
+    display: flex;
+    flex-direction: column; 
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.schedule-item .work-time,
+.schedule-item .break-time {
+    display: flex;
+    align-items: center;
+    color: #555;
+    margin-bottom: 4px; 
+}
+
+.schedule-item .work-time img,
+.schedule-item .break-time img {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px; 
+    object-fit: contain;
+}
+
+.schedule-item .work-time {
+    color: #1a1a1a; 
+    font-weight: 600;
+}
+
+.schedule-item .break-time {
+    color: #888; 
+    font-size: 13px; 
+}
+
+.add-schedule-btn {
+    display: none; 
+}
+
+.bottombar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    padding-top: 16px;
+
+    display: flex;
+    justify-content: space-around;
+    background: #ffffff;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+.bottombar img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}

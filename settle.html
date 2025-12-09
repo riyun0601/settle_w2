@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link rel="stylesheet" href="settle.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="./script.js"></script>
+
+    <title>정산하기</title>
+
+<style>
+
+.content {
+    overflow-y: auto;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+
+    box-shadow: 0 0 6px rgba(0,0,0,0.12);
+    display: block;
+    color: #333333;
+    text-decoration: none;
+}
+
+.card-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333333;
+}
+
+.card-sub {
+    font-size: 14px;
+    color: #777777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+    <div class="statusbar">
+        <div class="status-left">8:52</div>
+        <img class="status-right" src="icon/top.png" />
+    </div>
+
+    <header class="topbar">
+        <button class="back" onclick="history.back()">
+            <img src="icon/arrow.png" />
+        </button>
+        <h1>정산하기</h1>
+    </header>
+
+    <main class="content">
+
+        <a href="november.html" class="card">
+            <div class="card-title">11월 정산 내역</div>
+            <div class="card-sub">2025.11.01 ~ 2025.11.30</div>
+        </a>
+
+        <a href="#" class="card">
+            <div class="card-title">10월 정산 내역</div>
+            <div class="card-sub">2025.10.01 ~ 2025.10.31</div>
+        </a>
+
+        <a href="#" class="card">
+            <div class="card-title">9월 정산 내역</div>
+            <div class="card-sub">2025.09.01 ~ 2025.09.30</div>
+        </a>
+
+        <a href="#" class="card">
+            <div class="card-title">8월 정산 내역</div>
+            <div class="card-sub">2025.08.01 ~ 2025.08.31</div>
+        </a>
+
+        <a href="#" class="card">
+            <div class="card-title">7월 정산 내역</div>
+            <div class="card-sub">2025.07.01 ~ 2025.07.31</div>
+        </a>
+
+        <a href="#" class="card">
+            <div class="card-title">6월 정산 내역</div>
+            <div class="card-sub">2025.06.01 ~ 2025.06.30</div>
+        </a>
+
+        <a href="#" class="card">
+            <div class="card-title">5월 정산 내역</div>
+            <div class="card-sub">2025.05.01 ~ 2025.05.31</div>
+        </a>
+
+        <a href="#" class="card">
+            <div class="card-title">4월 정산 내역</div>
+            <div class="card-sub">2025.04.01 ~ 2025.04.30</div>
+        </a>
+
+        <a href="#" class="card">
+            <div class="card-title">3월 정산 내역</div>
+            <div class="card-sub">2025.03.01 ~ 2025.03.31</div>
+        </a>
+
+    </main>
+
+    <nav class="bottombar" aria-label="하단탭">
+        <div class="tab-item" data-target="index.html">
+            <img src="./icon/home.png" alt="홈 아이콘" />
+        </div>
+
+        <div class="tab-item" data-target="sheet.html">
+            <img src="./icon/calender.png" alt="캘린더 아이콘" />
+        </div>
+
+        <div class="tab-item" data-target="emp_list.html">
+            <img src="./icon/people.png" alt="사람 아이콘" />
+        </div>
+
+        <div class="tab-item" data-target="settle.html">
+            <img src="./icon/page_blue.png" alt="정산 아이콘" />
+        </div>
+    </nav>
+
+</div>
+
+</body>
+</html>

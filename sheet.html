@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link rel="stylesheet" href="sheet.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="./script.js"></script>
+    <title>sheet</title>
+</head>
+<body>
+    <div class="phone">
+        <div class="statusbar">
+            <div class="status-left">8:52</div>
+            <img class="status-right" src="icon/top.png">
+        </div>
+        <div class="content">
+            <header class="topbar">
+                <button class="back"><img src="icon/arrow.png" /></button>
+                <h1 id="title">정산하기</h1>
+            </header>
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button id="prev-month"><img src="icon/arrow.png" /></button>
+                    <h2 id="month-title"></h2>
+                    <button id="next-month"><img src="icon/arrow.png" /></button>
+                </div>
+                <div class="calendar-weekdays">
+                    <div>일</div>
+                    <div>월</div>
+                    <div>화</div>
+                    <div>수</div>
+                    <div>목</div>
+                    <div>금</div>
+                    <div>토</div>
+                </div>
+                <div class="calendar-grid" id="calendar-grid"></div>
+            </div>
+            <div class="sheet-container">
+                <div class="timeline"></div>
+                <div class="worksheet">
+                    <div class="profile"></div>
+                    <div class="sheet-grid"></div>
+                </div>
+            </div>
+            <button class="work-create">+</button>
+        </div>
+        <nav class="bottombar" aria-label="하단탭">
+            <div class="tab-item" data-target="index.html">
+                <img src="./icon/home.png" alt="홈 아이콘" />
+            </div>
+
+            <div class="tab-item" data-target="sheet.html">
+                <img src="./icon/calender_blue.png" alt="캘린더 아이콘" />
+            </div>
+
+            <div class="tab-item" data-target="emp_list.html">
+                <img src="./icon/people.png" alt="사람 아이콘" />
+            </div>
+
+            <div class="tab-item" data-target="settle.html">
+                <img src="./icon/page.png" alt="정산 아이콘" />
+            </div>
+        </nav>
+    </div>
+</body>
+<script src="calendar.js"></script>
